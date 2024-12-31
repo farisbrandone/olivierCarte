@@ -581,7 +581,7 @@ function Signup() {
         </MapContainer>
 
         <div className="partSubmit">
-          <img src="carte.png" alt="" className="imageCarte" />
+          <img src="carte.png" alt="" className="imageCarte1" />
 
           <div className="selectRule">
             <input
