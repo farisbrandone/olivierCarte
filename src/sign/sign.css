@@ -77,7 +77,7 @@
   align-items: center;
   gap: 15px;
   margin-bottom: 10px;
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 16px;
 }
 .labelVille {
@@ -447,6 +447,7 @@
   outline: none;
   border: 0px;
   cursor: pointer;
+  font-weight: bolder;
 }
 
 .inscButton {
@@ -460,6 +461,7 @@
 
 .inscButton:disabled {
   background-color: #faa60b5b;
+  cursor: not-allowed;
 }
 
 .conButton {
@@ -470,7 +472,7 @@
 .conButton:hover {
   background-color: #007bff;
   color: white;
-  transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .imageCarte {
@@ -661,9 +663,17 @@
   background-color: red;
   color: white;
 }
+.contactBigger {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
 
 .contacterContainer {
-  max-width: 1250px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -680,20 +690,30 @@
   margin-top: 10px;
   width: 100%;
   border: 2px solid #000;
+  display: block;
 }
 .textContact::before {
   content: "";
   margin-bottom: 10px;
   width: 100%;
   border: 2px solid #000;
+  display: block;
 }
 
 .contectTextArea {
   border: 0px;
   font-size: 16px;
+  margin-top: 20px;
 }
 .contectTextArea:focus {
   outline: none;
+}
+
+.imageCompte {
+  width: 73.5px;
+  height: 73.5px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .submitContact {
@@ -703,10 +723,18 @@
   border: 2px solid #faa60b;
   color: #faa60b;
   background-color: white;
+  padding: 5px;
+  width: 120px;
+  margin: auto;
+  cursor: pointer;
+  font-weight: bolder;
+  border-radius: 5px;
 }
 
 .submitContact:hover {
-  background-color: rgba(255, 255, 255, 0.644);
+  background-color: #faa60b;
+  color: white;
+  transition: 500ms all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .message1,
@@ -724,6 +752,22 @@
   background-color: rgb(236, 45, 45);
 }
 
+.message11 {
+  color: rgb(28, 231, 28);
+}
+.message22 {
+  color: rgb(236, 45, 45);
+}
+
+.failError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  width: 100vw;
+  height: 100vh;
+}
+
 @media (min-width: 640px) {
   .partNav {
     width: 200px;
@@ -739,8 +783,20 @@
   .oneNav p {
     display: inline-block;
   }
+  .bigInsc {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .containerInsc {
+    margin-top: auto;
     width: 600px;
+    padding: 30px;
+    border: 2px solid #007bff;
+
+    border-radius: 10px;
   }
   .partSubmit {
     width: 500px;
@@ -760,4 +816,41 @@
     max-height: 70vh;
     overflow: hidden;
   }
+}
+.bestLogin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerLogin {
+  width: 600px;
+  padding: 20px 50px 50px 50px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+}
+
+.titleLogin {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.titleLogin::before {
+  content: "";
+  border: 2px solid #007bff;
+  background-color: #007bff;
+  flex: 1;
+}
+
+.titleLogin::after {
+  content: "";
+  border: 2px solid #007bff;
+  background-color: #007bff;
+  flex: 1;
 }

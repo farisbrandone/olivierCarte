@@ -14,8 +14,8 @@ import "leaflet-control-geocoder";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { LeafletControlGeocoder } from "./sign/component/Search";
-import { LeafletControlSearch } from "./sign/component/SearchForMap";
+/* import { LeafletControlGeocoder } from "./sign/component/Search";
+import { LeafletControlSearch } from "./sign/component/SearchForMap"; */
 import { OpenStreetMapProvider, SearchControl } from "leaflet-geosearch";
 import {
   FocusView,
@@ -24,7 +24,8 @@ import {
 } from "./sign/component/MiniMap";
 import { BiPersonStandingDress } from "./sign/icon/GirlPerson";
 import { OiPerson } from "./sign/icon/Person";
-import { auth } from "../firebaseConfig";
+import { auth, db } from "../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 //import "leaflet-geosearch/dist/geosearch.css";
 function App() {
   const [userArray, setUserArray] = useState(null);
@@ -41,7 +42,7 @@ function App() {
 
   const myfunction = useCallback(setLeafletMapRef, [a]);
 
-  const markers = [
+  /*  const markers = [
     {
       geocode: [48.86, 2.3522],
       popup: "hello, I am pop up 1",
@@ -54,7 +55,7 @@ function App() {
       geocode: [48.855, 2.34],
       popup: "hello, I am pop up 3",
     },
-  ];
+  ]; */
 
   const custumIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/128/684/684908.png",
@@ -171,7 +172,11 @@ function App() {
                         <p className="topText">il ya 1 membre</p>
                         <div className="bodyPopup">
                           {value.image && value.image.publication ? (
-                            <img src={value.image.photo} alt="" />
+                            <img
+                              src={value.image.photo}
+                              alt=""
+                              className="imageCarte"
+                            />
                           ) : (
                             <div className="popupImage">
                               <BiPersonStandingDress width="3em" height="3em" />{" "}
@@ -182,7 +187,7 @@ function App() {
                               {" "}
                               <strong>{value.prenom}</strong>{" "}
                             </span>
-                            <span className="popupName">
+                            <span className="popupName1">
                               {" "}
                               <strong>
                                 {value.genre}-{value.ville.label}
@@ -207,7 +212,7 @@ function App() {
               );
             })}
 
-          {markers.map((marker) => (
+          {/*  {markers.map((marker) => (
             <Marker position={marker.geocode} icon={custumIcon}>
               <Popup>
                 <div className="popupContainer">
@@ -239,11 +244,11 @@ function App() {
                 </div>
               </Popup>
             </Marker>
-          ))}
+          ))} */}
         </MarkerClusterGroup>
         {/*  <LeafletControlSearch /> */}
         <MinimapControl position="bottomright" />
-        <Geolocalisation />
+        <Geolocalisation user={sender} />
         <FocusView />
       </MapContainer>
 

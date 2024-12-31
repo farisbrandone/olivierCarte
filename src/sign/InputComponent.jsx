@@ -55,28 +55,24 @@ function InputComponent3({
   messagePassword,
   valid,
 }) {
-  console.log(messagePassword + "papa");
   return (
-    <div className="containerInput">
-      <div className="caseIcon"> {icon} </div>
-      <input
-        id={myId}
-        type={type}
-        placeholder={placeholder}
-        className="inputInsc"
-        value={val}
-        onChange={handleChange}
-        style={{ borderColor: pass && "red" }}
-      />
+    <div>
+      <div className="containerInput">
+        <div className="caseIcon"> {icon} </div>
+        <input
+          id={myId}
+          type={type}
+          placeholder={placeholder}
+          className="inputInsc"
+          value={val}
+          onChange={handleChange}
+          style={{ borderColor: pass && "red" }}
+        />
+      </div>
       {messagePassword ? (
-        <p className="text-red-700 text-[12px] w-[240px] text-wrap  whitespace-pre">
-          {" "}
-          {messagePassword}{" "}
-        </p>
+        <p className="message22"> {messagePassword} </p>
       ) : (
-        <p className="text-green-700 text-[12px] w-[240px] text-wrap whitespace-pre">
-          {valid}
-        </p>
+        <p className="message11">{valid}</p>
       )}
     </div>
   );

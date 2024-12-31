@@ -80,7 +80,7 @@ export function MinimapControl({ position, zoom }) {
   );
 }
 
-export function Geolocalisation() {
+export function Geolocalisation({ user }) {
   const parentMap = useMap();
 
   return (

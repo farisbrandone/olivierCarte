@@ -11,11 +11,62 @@ import { MapContainer } from "react-leaflet";
 import { LeafletControlGeocoder } from "../sign/component/Search";
 import Header from "../components/Header";
 import "../sign/sign.css";
+import { auth, db } from "../../firebaseConfig";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+import { Toast } from "../sign/component/Toast";
+import { useNavigate } from "react-router";
+import { EosIconsLoading } from "../sign/icon/Spinner";
 
 export default function ComptePage() {
   const [buttonState, setButtonState] = useState("compte");
+  const [user, setUser] = useState(null);
+  const [loadingFail, setLoadingFail] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
+  const [err, setErr] = useState(false);
+  const [startSending, setStartSending] = useState(false);
+  const currentUser = auth.currentUser;
+  const navigate = useNavigate();
   const handleButtonState = (value) => {
     setButtonState(value);
+  };
+
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setMessage("");
+      setErr(false);
+    }, 3000); // Hide the toast after 3 seconds
+  };
+  const deleteCompte = async () => {
+    try {
+      setStartSending(true);
+      const resultDelete = await axios.post(
+        "https://serverbackofficetrucdejesus.onrender.com/api/frontoffice/deleteuseroliviercarte",
+        {
+          uid: currentUser.uid,
+          password: user.password,
+        }
+      );
+      if (resultDelete.delete) {
+        const messageRef = collection(db, "OlivierUserData");
+        await deleteDoc(doc(messageRef, user.id));
+        navigate("/signup");
+      }
+    } catch (error) {
+      setMessage("Une erreur est survenue pendant la suppression!");
+      setErr(true);
+      handleShowToast();
+      setStartSending(false);
+      return;
+    }
   };
 
   useEffect(() => {
@@ -142,8 +193,39 @@ export default function ComptePage() {
     };
   }, []);
 
+  useEffect(() => {
+    const getAllMember = async () => {
+      try {
+        const commentaireRef = collection(db, "OlivierUserData");
+        const querySnapshot = await getDocs(commentaireRef);
+
+        if (querySnapshot.docs.length !== 0) {
+          querySnapshot.forEach((doc) => {
+            if (doc.data().email === currentUser.email) {
+              setUser({ ...doc.data(), id: doc.id });
+            }
+          });
+        } else {
+          throw new Error("Une erreur est survenue, vérifier votre connexion");
+        }
+      } catch (error) {
+        console.log(error);
+        setLoadingFail(true);
+      }
+    };
+    getAllMember();
+  }, []);
+
+  if (loadingFail) {
+    return (
+      <div className="failError">
+        Une erreur est survenue pendant le chargement ou problème de connexion
+      </div>
+    );
+  }
   return (
     <div className="containerTop">
+      <Toast message={message} show={showToast} error={err} />
       <Header />
       <div className="containerCompte">
         <div className="titleCompte">
@@ -159,11 +241,15 @@ export default function ComptePage() {
         <div className="containerInfo">
           <div className="navbarInfo">
             <div className="profilCompte">
-              <AvatarComponent />
+              {user.image.publication ? (
+                <img src={user.image.photo} alt="" className="imageCompte" />
+              ) : (
+                <AvatarComponent />
+              )}
               <div className="detailAvatar">
-                <p style={{ fontSize: "16px" }}>Olivier</p>
+                <p style={{ fontSize: "16px" }}>{user.prenom}</p>
                 <a
-                  href=""
+                  href={user.image.photo}
                   style={{
                     fontSize: "12px",
                     textDecoration: "none",
@@ -251,7 +337,8 @@ export default function ComptePage() {
 
               <div
                 className="partNav"
-                onClick={() => handleButtonState("supprimer")}
+                onClick={deleteCompte}
+                /* onClick={() => handleButtonState("supprimer")} */
               >
                 <div
                   className="miniAvatar"
@@ -268,7 +355,10 @@ export default function ComptePage() {
                       fontWeight: buttonState === "supprimer" ? "900" : "",
                     }}
                   >
-                    Supprimer le compte
+                    <span>Supprimer le compte</span>
+                    {startSending && (
+                      <EosIconsLoading width="2em" height="2em" />
+                    )}
                   </p>{" "}
                   <MoreIcon />{" "}
                 </div>
@@ -277,13 +367,13 @@ export default function ComptePage() {
           </div>
 
           {buttonState === "compte" ? (
-            <Compte />
+            <Compte user={user} />
           ) : buttonState === "mot de passe" ? (
-            <ModifMotsDepasse />
+            <ModifMotsDepasse user={user} />
           ) : buttonState === "carte" ? (
-            <ParametreCarte />
+            <ParametreCarte user={user} />
           ) : (
-            <SupprimerCompte />
+            <SupprimerCompte user={user} />
           )}
         </div>
       </div>
@@ -291,12 +381,85 @@ export default function ComptePage() {
   );
 }
 
-export function ModifMotsDepasse() {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+export function ModifMotsDepasse({ user }) {
+  const [password, setPassword] = useState(user.password);
+  const [confirmPassword, setConfirmPassword] = useState(user.password);
+  const currentUser = auth.currentUser;
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
+  const [err, setErr] = useState(false);
+  const [startSending, setStartSending] = useState(false);
+
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setMessage("");
+      setErr(false);
+    }, 3000); // Hide the toast after 3 seconds
+  };
+
+  const updatePassword = async () => {
+    let existFireStore;
+    if (password === user.password) {
+      setMessage("Aucune modification n'a été réaliser !");
+      setErr(true);
+      handleShowToast();
+      return;
+    }
+    if (!password || !verifyPassword(password).success) {
+      setMessage("Mots de passe non valide!");
+      setErr(true);
+      handleShowToast();
+      return;
+    }
+    if (!confirmPassword || password !== confirmPassword) {
+      setMessage("Mots de passe non confirmité!");
+      setErr(true);
+      handleShowToast();
+      return;
+    }
+    const dateOfUpdate = new Date().toUTCString();
+    try {
+      setStartSending(() => true);
+      const data = {
+        uid: currentUser.uid,
+        password,
+      };
+      const resultDelete = await axios.post(
+        "https://serverbackofficetrucdejesus.onrender.com/api/frontoffice/deleteuseroliviercarte",
+        data
+      );
+      if (resultDelete.delete) {
+        const resultCreate = await createUser(email, password, auth);
+        const messageRef = collection(db, "OlivierUserData");
+        const querySnapshot = await getDocs(messageRef);
+
+        if (querySnapshot.docs.length !== 0) {
+          querySnapshot.forEach((doc) => {
+            const id = doc.id;
+            if (doc.data().email === currentUser.email) {
+              existFireStore = { ...doc.data() };
+            }
+          });
+        }
+        await updateDoc(doc(messageRef, existFireStore.id), {
+          password,
+          dateOfUpdate,
+        });
+      }
+      setStartSending(() => false);
+    } catch (error) {
+      setMessage("Une erreur est survenue !");
+      setErr(true);
+      setStartSending(() => false);
+      handleShowToast();
+    }
+  };
 
   return (
     <div className="info">
+      <Toast message={message} show={showToast} error={err} />
       <div className="infoIdent">
         <div className="ident">
           <div className="ident1">
@@ -305,7 +468,9 @@ export function ModifMotsDepasse() {
           </div>
           <p>identifiant</p>
         </div>
-        <p style={{ textAlign: "start", paddingLeft: "5px" }}>Olivierorna</p>
+        <p style={{ textAlign: "start", paddingLeft: "5px" }}>
+          {user.prenom} {user.nom}{" "}
+        </p>
       </div>
 
       <div className="formData">
@@ -339,13 +504,21 @@ export function ModifMotsDepasse() {
       </div>
 
       <div className="partSubmitButton">
-        <button className="inscButton"> Mettre à jour le mot de passe </button>
+        <button
+          className="inscButton"
+          disabled={startSending}
+          onClick={updatePassword}
+        >
+          {" "}
+          <span>Mettre à jour le mot de passe </span>
+          {startSending && <EosIconsLoading width="2em" height="2em" />}
+        </button>
       </div>
     </div>
   );
 }
 
-export function ParametreCarte() {
+export function ParametreCarte({ user }) {
   return (
     <div className="info">
       <div className="infoIdent">
@@ -356,7 +529,9 @@ export function ParametreCarte() {
           </div>
           <p>identifiant</p>
         </div>
-        <p style={{ textAlign: "start", paddingLeft: "5px" }}>Olivierorna</p>
+        <p style={{ textAlign: "start", paddingLeft: "5px" }}>
+          {user.prenom} {user.nom}{" "}
+        </p>
       </div>
 
       <div className="formData"></div>
@@ -371,7 +546,7 @@ export function ParametreCarte() {
   );
 }
 
-export function SupprimerCompte() {
+export function SupprimerCompte({ user }) {
   return (
     <div className="info">
       <div className="infoIdent">
@@ -382,7 +557,9 @@ export function SupprimerCompte() {
           </div>
           <p>identifiant</p>
         </div>
-        <p style={{ textAlign: "start", paddingLeft: "5px" }}>Olivierorna</p>
+        <p style={{ textAlign: "start", paddingLeft: "5px" }}>
+          {user.prenom} {user.nom}{" "}
+        </p>
       </div>
 
       <div className="formData"></div>
@@ -399,15 +576,17 @@ export function SupprimerCompte() {
   );
 }
 
-export function Compte() {
-  const [prenom, setPrenom] = useState("");
-  const [nom, setNom] = useState("");
-  const [email, setEmail] = useState("");
-  const [biographie, setBiographie] = useState("");
-  const [pays, setPays] = useState("France");
-  const [ville, setville] = useState({});
-  const [selectValue, setSelectValue] = useState(true);
-  const [selected, setSelected] = useState(1);
+export function Compte({ user }) {
+  const [prenom, setPrenom] = useState(user.prenom);
+  const [nom, setNom] = useState(user.nom);
+  const [email, setEmail] = useState(user.email);
+  const [biographie, setBiographie] = useState(user.description);
+  const [pays, setPays] = useState(user.pays);
+  const [ville, setville] = useState({ ...user.ville });
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
+  const [err, setErr] = useState(false);
+  const [startSending, setStartSending] = useState(false);
   const handlePays = (e) => {
     e.preventDefault();
     setPays(e.target.value);
@@ -417,8 +596,73 @@ export function Compte() {
     setBiographie(e.target.value);
   };
 
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setMessage("");
+      setErr(false);
+    }, 3000); // Hide the toast after 3 seconds
+  };
+  const updatePassword = async () => {
+    if (!prenom || !nom || !email || !ville || !biographie) {
+      setMessage("Tous les champs ne sont pas remplis!");
+      setErr(true);
+      handleShowToast();
+      return;
+    }
+    let existFireStore;
+    const dateOfUpdate = new Date().toUTCString();
+    try {
+      setStartSending(() => true);
+      const data = {
+        prenom,
+        nom,
+        email,
+        description: biographie,
+        pays,
+        ville,
+      };
+
+      const resultDelete = await axios.post(
+        "https://serverbackofficetrucdejesus.onrender.com/api/frontoffice/deleteuseroliviercarte",
+        { email, uid: auth.currentUser.uid }
+      );
+      if (resultDelete.delete) {
+        const resultCreate = await createUser(email, password, auth);
+        const messageRef = collection(db, "OlivierUserData");
+        const querySnapshot = await getDocs(messageRef);
+
+        if (querySnapshot.docs.length !== 0) {
+          querySnapshot.forEach((doc) => {
+            const id = doc.id;
+            if (doc.data().email === currentUser.email) {
+              existFireStore = { ...doc.data(), id };
+            }
+          });
+        }
+        await updateDoc(doc(messageRef, existFireStore.id), {
+          prenom,
+          nom,
+          email,
+          description: biographie,
+          pays,
+          ville,
+          dateOfUpdate,
+        });
+      }
+      setStartSending(() => false);
+    } catch (error) {
+      setMessage("Une erreur est survenue !");
+      setErr(true);
+      setStartSending(() => false);
+      handleShowToast();
+    }
+  };
+
   return (
     <div className="info">
+      <Toast message={message} show={showToast} error={err} />
       <div className="infoIdent">
         <div className="ident">
           <div className="ident1">
@@ -427,7 +671,9 @@ export function Compte() {
           </div>
           <p>identifiant</p>
         </div>
-        <p style={{ textAlign: "start", paddingLeft: "5px" }}>Olivierorna</p>
+        <p style={{ textAlign: "start", paddingLeft: "5px" }}>
+          {user.prenom} {user.nom}{" "}
+        </p>
       </div>
 
       <div className="formData">
@@ -527,9 +773,13 @@ export function Compte() {
       </div>
 
       <div className="partSubmitButton1">
-        <button className="inscButton" disabled={!selectValue}>
-          {" "}
-          Mettre à jour le compte{" "}
+        <button
+          className="inscButton"
+          disabled={startSending}
+          onClick={updatePassword}
+        >
+          <span> Mettre à jour le compte </span>
+          {startSending && <EosIconsLoading width="2em" height="2em" />}
         </button>
       </div>
     </div>

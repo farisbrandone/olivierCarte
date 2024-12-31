@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 
 import { AvatarComponent } from "./icon/AvatarComponent";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { useEffect } from "react";
 import "../sign/sign.css";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
+import { Toast } from "../sign/component/Toast";
 
 export default function BodyLanding() {
+  const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState("");
+  const [err, setErr] = useState(false);
+  const handleShowToast = () => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setMessage("");
+      setErr(false);
+    }, 3000); // Hide the toast after 3 seconds
+  };
+
   useEffect(() => {
     // Create a style element
     const style = document.createElement("style");
@@ -133,6 +149,7 @@ export default function BodyLanding() {
 
   return (
     <div className="containerLanding" style={{ fontSize: "18px" }}>
+      <Toast message={message} show={showToast} error={err} />
       <Header />
       <div className="containerElement">
         <p style={{ fontSize: "75px", textAlign: "center" }}>Bienvenue</p>
@@ -149,14 +166,31 @@ export default function BodyLanding() {
           <li>
             <NavLink
               to="/compte"
-              style={{ color: "#faa60b", textDecoration: "none" }}
+              style={{
+                color: "#faa60b",
+                textDecoration: "none",
+                fontSize: "16px",
+              }}
             >
               Votre compte
             </NavLink>
           </li>
-          <li>
+          <li
+            onClick={async () => {
+              try {
+                await signOut(auth);
+                navigate("/login");
+              } catch (err) {
+                setMessage("Une erreur est survenue pendant la déconnection");
+                setErr(true);
+                handleShowToast();
+                return;
+              }
+            }}
+            style={{ cursor: "pointer" }}
+          >
             {" "}
-            <p style={{ color: "#faa60b" }}>Déconnexion</p>
+            <p style={{ color: "#faa60b", fontSize: "16px" }}>Déconnexion</p>
           </li>
         </ul>
       </div>

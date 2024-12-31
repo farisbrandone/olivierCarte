@@ -21,6 +21,7 @@ import {
 } from "firebase/auth";
 import { Toast } from "./component/Toast";
 import { useNavigate } from "react-router";
+import { EosIconsLoading } from "./icon/Spinner";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -67,7 +68,6 @@ function Login() {
       }; */
       const tt = await signInWithEmailAndPassword(auth, email, password);
       console.log(tt);
-      console.log(result);
       setStartSending(() => false);
       setMessage("Success!");
       setErr(false);
@@ -91,52 +91,54 @@ function Login() {
   };
 
   return (
-    <div className="containerInsc">
-      <Toast message={message} show={showToast} error={err} />
-      <div className="titleinsc">Se connecter</div>
+    <div className="bestLogin">
+      <div className="containerLogin">
+        <Toast message={message} show={showToast} error={err} />
+        <div className="titleLogin">Se connecter</div>
 
-      <div className="inputWithLabel">
-        <label htmlFor="email">
-          {" "}
-          <strong>Votre e-mail</strong>{" "}
-        </label>
-        <InputComponent
-          val={email}
-          setValue={setEmail}
-          myId="email"
-          icon={<TopcoatEmail width="18px" height="18px" />}
-          placeholder="E-mail"
-          handleChange={handleEmail}
-          pass={classOfEmail}
-        />
-      </div>
-      <div className="inputWithLabel">
-        <label htmlFor="password">
-          {" "}
-          <strong>Mot de passe</strong>{" "}
-        </label>
-        <InputComponent3
-          val={password}
-          myId="password"
-          placeholder="Mot de passe"
-          icon={<Fa6SolidKey width="18px" height="18px" />}
-          type="password"
-          handleChange={handlePassword}
-          pass={classOfPassword}
-          messagePassword=""
-          valid=""
-        />
-      </div>
-      <div className="partSubmitButton">
-        <button
-          type="button"
-          className="conButton"
-          onClick={submitData}
-          disabled={startSending}
-        >
-          <span>Se connecter</span>
-          {startSending && <EosIconsLoading width="2em" height="2em" />}
-        </button>
+        <div className="inputWithLabel">
+          <label htmlFor="email">
+            {" "}
+            <strong>Votre e-mail</strong>{" "}
+          </label>
+          <InputComponent
+            val={email}
+            setValue={setEmail}
+            myId="email"
+            icon={<TopcoatEmail width="18px" height="18px" />}
+            placeholder="E-mail"
+            handleChange={handleEmail}
+            pass={classOfEmail}
+          />
+        </div>
+        <div className="inputWithLabel">
+          <label htmlFor="password">
+            {" "}
+            <strong>Mot de passe</strong>{" "}
+          </label>
+          <InputComponent3
+            val={password}
+            myId="password"
+            placeholder="Mot de passe"
+            icon={<Fa6SolidKey width="18px" height="18px" />}
+            type="password"
+            handleChange={handlePassword}
+            pass={classOfPassword}
+            messagePassword=""
+            valid=""
+          />
+        </div>
+        <div className="partSubmitButton">
+          <button
+            type="button"
+            className="conButton"
+            onClick={submitData}
+            disabled={startSending}
+          >
+            <span>Se connecter</span>
+            {startSending && <EosIconsLoading width="2em" height="2em" />}
+          </button>
+        </div>
       </div>
     </div>
   );
