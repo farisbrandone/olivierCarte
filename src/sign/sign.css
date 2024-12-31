@@ -475,8 +475,8 @@
   transition: all 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.imageCarte {
-  object-fit: fill;
+.imageCarte1 {
+  object-fit: cover;
   width: 100%;
   margin-bottom: 10px;
   height: 250px;
