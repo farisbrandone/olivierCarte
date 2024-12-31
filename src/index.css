@@ -1,0 +1,193 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+}
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.leaflet-container {
+  width: 95vw;
+  border-radius: 15px;
+  height: 800px;
+}
+
+.containerLanding {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.containerElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+.ulList {
+  width: 200px;
+}
+.avatarName {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+/* sizing of map container */
+/* .leaflet-container {
+  width: 95vw;
+  border-radius: 15px;
+  height: 800px;
+} */
+
+.titleCarte {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 35px;
+  max-width: 500px;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+.myBody {
+  max-width: 100vw;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerHeaderFirst {
+  position: absolute;
+  width: 100%;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerHeader {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  gap: 15px;
+}
+
+.containerFooter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.footerDescription {
+  max-width: 1250px;
+  border: 1px solid #00000023;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: aliceblue;
+  gap: 15px;
+}
+.footerTitle {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footerElement {
+  width: 280px;
+  display: flex;
+  gap: 10px;
+}
+
+.footerImage {
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.aba {
+  margin-top: 40px;
+}
+.popupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.topText {
+  text-align: center;
+  font-size: 10px;
+}
+
+.bodyPopup {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.popupImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.popupDescription {
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.popupContact {
+  align-self: flex-end;
+  text-decoration: none;
+  color: rgb(11, 173, 248);
+}
+
+.bodyDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.popupName {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .containerHeader {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    gap: 65px;
+  }
+  .footerDescription {
+    max-width: 1250px;
+    border: 1px solid #00000023;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    background-color: aliceblue;
+    gap: 15px;
+  }
+}

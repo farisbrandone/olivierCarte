@@ -1,0 +1,763 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+}
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+/* .leaflet-container {
+  min-height: 121px;
+  width: 100%;
+  border-radius: 5px;
+  background: #fff !important;
+}
+
+.leaflet-control-attribution {
+  width: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+.leaflet-control-attribution a {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.leaflet-bar  {
+  width: 100% !important;
+  height: 121px !important;
+  position: absolute;
+  margin: 0 !important;
+  border: 0 !important;
+  
+}
+.leaflet-control-zoom .leaflet-bar .leaflet-control {
+  display: none;
+}
+
+.leaflet-top,
+.leaflet-left {
+  width: 100%;
+  height: 121px;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.leaflet-control-container:first-child:nth-child(2) {
+    display: none !important; 
+}
+
+
+
+.leaflet-control-zoom-in {
+  display: none;
+}
+.glass {
+  padding-left: 5px;
+  height: 40px;
+  border: 2px solid #00000023 !important;
+}
+.glass:focus {
+  border: 2px solid #00000067 !important;
+}
+ */
+.popup {
+  background-color: rgba(85, 164, 253, 0.596);
+}
+.titleinsc {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-top: 40px;
+  font-size: 16px;
+}
+.labelVille {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.titleinsc::before {
+  content: "";
+  border: 2px solid rgba(85, 164, 253, 0.596);
+  background-color: rgba(85, 164, 253, 0.596);
+  flex: 1;
+}
+
+.titleinsc::after {
+  content: "";
+  border: 2px solid rgba(85, 164, 253, 0.596);
+  background-color: rgba(85, 164, 253, 0.596);
+  flex: 1;
+}
+
+.containerInsc {
+  width: 100vw;
+  margin: auto;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 1360px;
+  position: relative;
+  overflow: hidden;
+}
+
+.containerInput {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.caseIcon {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #00000023;
+  border-right: 0px;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputInsc {
+  width: 100%;
+  outline: none;
+  border: 2px solid #00000023;
+  padding: 0px;
+  border-radius: 5px;
+  border-left: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  flex: 1;
+  height: 30px;
+}
+.inputInsc:focus {
+  border-color: rgba(0, 0, 0, 0.336);
+}
+
+.inputInsc2 {
+  width: 100%;
+  outline: none;
+  border: 2px solid #00000023;
+  padding: 0px;
+  border-radius: 5px;
+  flex: 1;
+  height: 30px;
+  padding-left: 5px;
+}
+.inputInsc2:focus {
+  border-color: rgba(0, 0, 0, 0.336);
+}
+
+.containerRadio {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.radioElelement {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex: 1;
+}
+.textPresentation {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #00000023;
+}
+
+.textPresentation:focus {
+  border-color: rgba(0, 0, 0, 0.336);
+}
+
+.labelTelecharger {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.inputTelecharger {
+  display: none;
+}
+
+.textAddPhoto {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.textAddPhoto::before {
+  content: "";
+  border: 1px dashed #000;
+  flex: 1;
+}
+
+.textAddPhoto::after {
+  content: "";
+  border: 1px dashed #000;
+  flex: 1;
+}
+
+.consignePhoto {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.consignePhoto div {
+  flex: 1;
+}
+.consignePhoto div p {
+  text-decoration: underline;
+}
+
+.inputWithLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.textPhoto {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  cursor: pointer;
+}
+.myText {
+  text-decoration: underline;
+}
+
+/* .cluster-icon {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background-color: #fff;
+      transform: translate(-25%, -25%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 2rem;
+  }
+   */
+
+/* .leaflet-control-geosearch .leaflet-control-geosearch-box {
+  background-color: #f0f0f0; 
+  border: 2px solid #c0c0c0; 
+  color: #333; 
+}
+.leaflet-control-geosearch .leaflet-control-geosearch-box:focus {
+  outline: none;
+}
+.leaflet-control-geosearch .leaflet-control-geosearch-results {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.reset {
+  color: #007bff;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  border: 2px solid #00000057;
+  background-color: #fff;
+  padding: 0;
+}
+.leaflet-bar form {
+  gap: 0;
+  padding: 0 !important;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.glass {
+  height: 30px;
+  outline: none;
+  display: inline;
+  border: 2px solid #0000003d !important;
+  border-radius: 5px;
+  border-right: 0px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  flex: 1;
+}
+
+.leaflet-control-zoom {
+}
+
+.leaflet-bar-part {
+  width: 100% !important;
+  text-align: start !important;
+}
+.leaflet-bar-part-single {
+  width: 100% !important;
+}
+.leaflet-bar-part .leaflet-bar-part-single {
+  color: #000;
+}
+
+.leaflet-control-attribution,
+.leaflet-control {
+  color: rgb(238, 12, 12);
+  text-decoration: none;
+}
+
+.results {
+  color: #000 !important;
+  overflow: auto;
+  margin: 0;
+  z-index: 200000;
+  max-height: 90px !important;
+  display: block;
+  width: 100%;
+}
+.results div:hover {
+  background-color: #000000c9;
+  color: #fff;
+  cursor: pointer;
+} */
+
+.captureScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000052;
+  z-index: 3000000000000;
+}
+
+.smallCaptureScreen {
+  position: relative;
+  width: 600px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #fff;
+  z-index: 40000000000000000;
+}
+
+.closeElement {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  background-color: rgba(255, 0, 0, 0.801);
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.finalPhoto {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.finalPhoto:hover {
+  text-decoration: underline;
+}
+
+.canvashidden {
+  display: none;
+}
+
+#photo-capture-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.partSubmit {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  padding: 5px;
+}
+
+.selectRule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ruleParagraphe {
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.partSubmitButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 30px;
+  bottom: 10px;
+  right: 10px;
+}
+.partSubmitButton1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 30px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.inscButton,
+.conButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 30px;
+  border-radius: 5px;
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+}
+
+.inscButton {
+  background-color: #faa60b;
+  color: white;
+}
+.inscButton:hover {
+  background-color: #faa60b86;
+  transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.inscButton:disabled {
+  background-color: #faa60b5b;
+}
+
+.conButton {
+  background-color: #ffffff;
+  color: rgb(44, 44, 44);
+  border: 1px solid #8b8b8b;
+}
+.conButton:hover {
+  background-color: #007bff;
+  color: white;
+  transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.imageCarte {
+  object-fit: fill;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 250px;
+}
+
+.containerHeaderFirst {
+  position: absolute;
+  width: 100%;
+  top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.containerHeader {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  gap: 15px;
+}
+
+.containerTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+.containerCompte {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 80px;
+}
+
+.titleCompte {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.containerInfo {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  border: 2px solid #00000023;
+  border-radius: 10px;
+  height: 650px;
+  overflow: hidden;
+}
+
+.navbarInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.profilCompte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.detailAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+.miniAvatar {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #4b4b4b;
+  background-color: #c4c4c4;
+  border-radius: 5px;
+}
+
+.partNav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 80px;
+  background-color: #c4c4c4;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.oneNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  flex: 1;
+}
+.oneNav p {
+  display: none;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.ident1 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ident {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.containerPartNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoIdent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formData {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.styleTestPassword {
+  color: red;
+  font-size: 11px;
+  text-wrap: wrap;
+  white-space: pre;
+  /*  text-red-700 text-[12px] w-[240px] text-wrap  whitespace-pre */
+}
+
+.styleTestPassword2 {
+  color: green;
+  font-size: 11px;
+  text-wrap: wrap;
+  white-space: pre;
+  /*  text-red-700 text-[12px] w-[240px] text-wrap  whitespace-pre */
+}
+
+.toast {
+  visibility: hidden; /* Hidden by default. Visible when show class is added */
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  transition: visibility 0.5s, opacity 0.5s linear;
+  opacity: 0;
+}
+
+.toast.show {
+  visibility: visible; /* Show the toast */
+  opacity: 1; /* Fade in */
+}
+.toast.error {
+  background-color: red;
+  color: white;
+}
+
+.contacterContainer {
+  max-width: 1250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.textContact {
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+}
+.textContact::after {
+  content: "";
+  margin-top: 10px;
+  width: 100%;
+  border: 2px solid #000;
+}
+.textContact::before {
+  content: "";
+  margin-bottom: 10px;
+  width: 100%;
+  border: 2px solid #000;
+}
+
+.contectTextArea {
+  border: 0px;
+  font-size: 16px;
+}
+.contectTextArea:focus {
+  outline: none;
+}
+
+.submitContact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #faa60b;
+  color: #faa60b;
+  background-color: white;
+}
+
+.submitContact:hover {
+  background-color: rgba(255, 255, 255, 0.644);
+}
+
+.message1,
+.message2 {
+  font-size: 18px;
+  color: white;
+  width: 100%;
+  padding: 3px;
+  text-align: center;
+}
+.message1 {
+  background-color: rgb(28, 231, 28);
+}
+.message2 {
+  background-color: rgb(236, 45, 45);
+}
+
+@media (min-width: 640px) {
+  .partNav {
+    width: 200px;
+  }
+
+  .oneNav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    flex: 1;
+  }
+  .oneNav p {
+    display: inline-block;
+  }
+  .containerInsc {
+    width: 600px;
+  }
+  .partSubmit {
+    width: 500px;
+    margin: auto;
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+    padding: 5px;
+  }
+
+  .containerInfo {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border: 2px solid #00000023;
+    border-radius: 10px;
+    max-height: 70vh;
+    overflow: hidden;
+  }
+}
