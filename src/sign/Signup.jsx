@@ -168,7 +168,7 @@ function Signup() {
     }
     try {
       setStartSending(() => true);
-      console.log("packo");
+
       const data = {
         prenom,
         nom,
@@ -221,7 +221,6 @@ function Signup() {
       handleShowToast();
       navigate("/login");
     } catch (error) {
-      console.log(error);
       setMessage("Une erreur est survenue !");
       setErr(true);
       setStartSending(() => false);

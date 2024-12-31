@@ -12,7 +12,6 @@ export function LeafletControlGeocoder({ ville, setVille }) {
       lat: result.location.raw.lat,
       lon: result.location.raw.lon,
     });
-    console.log(result.location);
   }
 
   useEffect(() => {

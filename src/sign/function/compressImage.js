@@ -13,10 +13,9 @@ export async function compressImage(files, maxWidth, maxHeight, quality) {
 
         reader.onload = (event) => {
           const img = new Image();
-          console.log("niveaui2");
+
           img.src = event.target?.result;
           img.onload = () => {
-            console.log("niveau3");
             let width = img.width;
             let height = img.height;
 
@@ -38,9 +37,7 @@ export async function compressImage(files, maxWidth, maxHeight, quality) {
             const ctx = canvas.getContext("2d");
             ctx?.drawImage(img, 0, 0, width, height);
             urlImage = canvas.toDataURL("image/jpeg", quality);
-            console.log(urlImage.length);
-            console.log("niveaui4");
-            console.log({ urlImage, name });
+
             resolve([urlImage, name]);
           };
         };
@@ -52,8 +49,7 @@ export async function compressImage(files, maxWidth, maxHeight, quality) {
     tabImages[i] = data[0];
     tabNames[i] = data[1];
   }
-  console.log("niveau3");
-  console.log(tabImages, tabNames);
+
   return { photo: tabImages[0], publication: true };
 }
 
@@ -72,10 +68,9 @@ export async function compressImage2(files, maxWidth, maxHeight, quality) {
 
         reader.onload = (event) => {
           const img = new Image();
-          console.log("niveaui2");
+
           img.src = event.target?.result;
           img.onload = () => {
-            console.log("niveau3");
             let width = img.width;
             let height = img.height;
 
@@ -97,9 +92,7 @@ export async function compressImage2(files, maxWidth, maxHeight, quality) {
             const ctx = canvas.getContext("2d");
             ctx?.drawImage(img, 0, 0, width, height);
             urlImage = canvas.toDataURL("image/jpeg", quality);
-            console.log(urlImage.length);
-            console.log("niveaui4");
-            console.log({ urlImage, name });
+
             resolve([urlImage, name]);
           };
         };
@@ -111,7 +104,6 @@ export async function compressImage2(files, maxWidth, maxHeight, quality) {
     tabImages[i] = data[0];
     tabNames[i] = data[1];
   }
-  console.log("niveau3");
-  console.log(tabImages, tabNames);
+
   return { photo: tabImages[0], publication: false };
 }

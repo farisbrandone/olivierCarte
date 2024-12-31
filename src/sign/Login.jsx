@@ -67,7 +67,7 @@ function Login() {
         password,
       }; */
       const tt = await signInWithEmailAndPassword(auth, email, password);
-      console.log(tt);
+
       setStartSending(() => false);
       setMessage("Success!");
       setErr(false);

@@ -35,7 +35,6 @@ function App() {
   //const map = useMap();
   const setLeafletMapRef = (map) => {
     if (!!map) {
-      console.log(map);
       map.addControl(searchControl);
     }
   };

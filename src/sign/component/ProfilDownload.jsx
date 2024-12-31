@@ -40,7 +40,7 @@ const ProfileDownload = ({
       canvasRef.current.height
     );
     const photo = canvasRef.current.toDataURL("image/png");
-    console.log(photo);
+
     setPhotoURL({ photo });
     videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
   };

@@ -50,7 +50,6 @@ export default function Contacter() {
       setStartSending(false);
       setSuccessSending("VOTRE MESSAGE A ÉTÉ ENVOYÉ!");
     } catch (error) {
-      console.log(error);
       setStartSending(false);
       setSuccessSending(
         "ECHEC DE L'ENVOIE DU MESSAGE, VÉRIFIER VOTRE CONNEXION ET REESSAYEZ!"
@@ -72,7 +71,6 @@ export default function Contacter() {
           throw new Error("Une erreur est survenue, vérifier votre connexion");
         }
       } catch (error) {
-        console.log(error);
         setLoadingFail(true);
       }
     };

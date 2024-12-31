@@ -209,7 +209,6 @@ export default function ComptePage() {
           throw new Error("Une erreur est survenue, vérifier votre connexion");
         }
       } catch (error) {
-        console.log(error);
         setLoadingFail(true);
       }
     };

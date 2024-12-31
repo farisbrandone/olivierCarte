@@ -6,8 +6,7 @@ export default function Header() {
   const url = window.location.pathname;
   const [sender, setSender] = useState(null);
   const currentUser = auth.currentUser;
-  console.log(currentUser.email);
-  console.log(sender);
+
   useEffect(() => {
     const getAllMember = async () => {
       let userData = [];
