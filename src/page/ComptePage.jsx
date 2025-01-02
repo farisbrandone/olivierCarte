@@ -240,7 +240,7 @@ export default function ComptePage() {
         <div className="containerInfo">
           <div className="navbarInfo">
             <div className="profilCompte">
-              {user.image.publication ? (
+              {user && user?.image.publication ? (
                 <img src={user.image.photo} alt="" className="imageCompte" />
               ) : (
                 <AvatarComponent />
@@ -248,7 +248,7 @@ export default function ComptePage() {
               <div className="detailAvatar">
                 <p style={{ fontSize: "16px" }}>{user.prenom}</p>
                 <a
-                  href={user.image.photo}
+                  href={user.image.photo ?? ""}
                   style={{
                     fontSize: "12px",
                     textDecoration: "none",

@@ -152,7 +152,7 @@ function Signup() {
       }
       if (!password || !verifyPassword(password).success) {
         setClassOfPassword(true);
-        setMessagePassword(verifyPassword(motsDepasse).message);
+        setMessagePassword(verifyPassword(password).message);
       }
       if (!confirmPassword || password !== confirmPassword) {
         setClassOfPassword(true);
@@ -350,8 +350,7 @@ function Signup() {
 }
   .leaflet-control-container:first-child:nth-child(2) {
     display: none !important; 
-}
-    `;
+}`;
     // Append the style element to the document head
     document.head.appendChild(style);
 
