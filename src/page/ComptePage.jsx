@@ -69,6 +69,8 @@ export default function ComptePage() {
     }
   };
 
+  console.log({ user });
+
   useEffect(() => {
     // Create a style element
     const style = document.createElement("style");
@@ -209,11 +211,16 @@ export default function ComptePage() {
           throw new Error("Une erreur est survenue, vérifier votre connexion");
         }
       } catch (error) {
+        console.log(error);
         setLoadingFail(true);
       }
     };
     getAllMember();
   }, []);
+
+  if (!user) {
+    <div className="failError">loading...</div>;
+  }
 
   if (loadingFail) {
     return (
@@ -246,9 +253,9 @@ export default function ComptePage() {
                 <AvatarComponent />
               )}
               <div className="detailAvatar">
-                <p style={{ fontSize: "16px" }}>{user.prenom}</p>
+                <p style={{ fontSize: "16px" }}>{user?.prenom}</p>
                 <a
-                  href={user.image.photo ?? ""}
+                  href={user?.image.photo ?? ""}
                   style={{
                     fontSize: "12px",
                     textDecoration: "none",
@@ -456,6 +463,10 @@ export function ModifMotsDepasse({ user }) {
     }
   };
 
+  useEffect(() => {
+    setPassword(user.password);
+    setConfirmPassword(user.confirmPassword);
+  }, []);
   return (
     <div className="info">
       <Toast message={message} show={showToast} error={err} />
@@ -576,12 +587,12 @@ export function SupprimerCompte({ user }) {
 }
 
 export function Compte({ user }) {
-  const [prenom, setPrenom] = useState(user.prenom);
-  const [nom, setNom] = useState(user.nom);
-  const [email, setEmail] = useState(user.email);
-  const [biographie, setBiographie] = useState(user.description);
-  const [pays, setPays] = useState(user.pays);
-  const [ville, setville] = useState({ ...user.ville });
+  const [prenom, setPrenom] = useState(user?.prenom);
+  const [nom, setNom] = useState(user?.nom);
+  const [email, setEmail] = useState(user?.email);
+  const [biographie, setBiographie] = useState(user?.description);
+  const [pays, setPays] = useState(user?.pays);
+  const [ville, setville] = useState({ ...user?.ville });
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
   const [err, setErr] = useState(false);
@@ -659,6 +670,17 @@ export function Compte({ user }) {
     }
   };
 
+  useEffect(() => {
+    if (user) {
+      setNom(user.nom);
+      setPrenom(user.prenom);
+      setBiographie(user.description);
+      setEmail(user.email);
+      setPays(user.pays);
+      setville(user.ville);
+    }
+  }, []);
+
   return (
     <div className="info">
       <Toast message={message} show={showToast} error={err} />
@@ -671,7 +693,7 @@ export function Compte({ user }) {
           <p>identifiant</p>
         </div>
         <p style={{ textAlign: "start", paddingLeft: "5px" }}>
-          {user.prenom} {user.nom}{" "}
+          {user?.prenom} {user?.nom}{" "}
         </p>
       </div>
 
