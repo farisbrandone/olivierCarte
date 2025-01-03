@@ -14,6 +14,8 @@ export default function BodyLanding() {
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState("");
   const [err, setErr] = useState(false);
+  const [sender, setSender] = useState(null);
+  const currentUser = auth.currentUser;
   const handleShowToast = () => {
     setShowToast(true);
     setTimeout(() => {
@@ -147,6 +149,27 @@ export default function BodyLanding() {
     };
   }, []);
 
+  useEffect(() => {
+    const getAllMember = async () => {
+      let userData = [];
+      const messageRef = collection(db, "OlivierUserData");
+      const querySnapshot = await getDocs(messageRef);
+
+      if (querySnapshot.docs.length !== 0) {
+        querySnapshot.forEach((doc) => {
+          const id = doc.id;
+          userData.push({
+            id,
+            ...doc.data(),
+          });
+        });
+
+        setSender(userData.find((us) => us.email === currentUser.email));
+      }
+    };
+    getAllMember();
+  }, []);
+
   return (
     <div className="containerLanding" style={{ fontSize: "18px" }}>
       <Toast message={message} show={showToast} error={err} />
@@ -159,7 +182,9 @@ export default function BodyLanding() {
         </p>
         <div className="avatarName">
           <AvatarComponent />
-          <p style={{ fontSize: "18px", textAlign: "center" }}>Olivier</p>
+          <p style={{ fontSize: "18px", textAlign: "center" }}>
+            {sender ? sender.prenom : ""}
+          </p>
         </div>
 
         <ul className="ulList">

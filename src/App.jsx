@@ -147,7 +147,7 @@ function App() {
           livres de David Théry qui habitent près de chez vous
         </p>
       </div>
-      <MapContainer center={[48.8566, 2.3522]} zoom={13} ref={myfunction}>
+      <MapContainer center={[46.6034, 1.8883]} zoom={2} ref={myfunction}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
